@@ -7,31 +7,44 @@ import DetailsPage from "./Components/DetailsPage/DetailsPage";
 import CardPage from "./Components/CardPage/CardPage";
 import { Routes, Route } from "react-router-dom";
 import { Home } from "@mui/icons-material";
-import { useState } from "react";
+import { useState, createContext } from "react";
+export const EmpContext = createContext();
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState({
-    id:2,
+    id: 2,
     email: "asutoshDora@gmail.com",
-    password : "password2",
-    img : ""
-})
+    password: "password2",
+    img: "",
+  });
+  const [employeeData, setEmployeeData] = useState([]);
   return (
     <div className="App">
-      {/* <>
-          <NavBar currentUser={currentUser} setIsLoggedIn={setIsLoggedIn}/>
+      <>
+        <EmpContext.Provider value={{employeeData, setEmployeeData}}>
+          <NavBar
+            currentUser={currentUser}
+            setIsLoggedIn={setIsLoggedIn}
+            setEmployeeData={setEmployeeData}
+          />
           <Routes>
-            <Route path="/" element={<HomePage currentUser={currentUser}/>} />
+            <Route path="/" element={<HomePage currentUser={currentUser} />} />
             <Route path="graph" element={<GraphPage />} />
-            <Route path="details" element={<DetailsPage />} />
-            <Route path="cards" element={<CardPage />} />
+            {/* <Route path="details" element={<DetailsPage />} /> */}
+            <Route
+              path="cards"
+              element={
+                <CardPage />
+              }
+            />
           </Routes>
-        </> */}
-      {!isLoggedIn ? (
+        </EmpContext.Provider>
+      </>
+      {/* {!isLoggedIn ? (
         <LoginPage setIsLoggedIn={setIsLoggedIn} setCurrentUser={setCurrentUser}/>
       ) : (
         <>
-          <NavBar currentUser={currentUser} setIsLoggedIn={setIsLoggedIn}/>
+          <NavBar currentUser={currentUser} setIsLoggedIn={setIsLoggedIn} setEmployeeData={setEmployeeData}/>
           <Routes>
             <Route path="/" element={<HomePage currentUser={currentUser}/>} />
             <Route path="graph" element={<GraphPage />} />
@@ -39,7 +52,7 @@ function App() {
             <Route path="cards" element={<CardPage />} />
           </Routes>
         </>
-      )}
+      )} */}
     </div>
   );
 }

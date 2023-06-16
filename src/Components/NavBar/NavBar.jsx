@@ -12,9 +12,9 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import { NavLink } from "react-router-dom";
 import Popover from "@mui/material/Popover";
+import FormComponent from "../FormComponent/FormComponent";
 import "./NavBar.css";
-import TextField from "@mui/material/TextField";
-import Input from "@mui/material/Input";
+
 const drawerWidth = 540;
 const navItems = [
   {
@@ -24,10 +24,6 @@ const navItems = [
   {
     name: "Cards",
     path: "cards",
-  },
-  {
-    name: "Details",
-    path: "details",
   },
   {
     name: "Graph",
@@ -57,23 +53,7 @@ export default function DrawerAppBar(props) {
 
   const drawer = (
     <div className="drawer__content">
-      <form className="employee-form">
-        <TextField id="outlined-basic" label="Name" variant="outlined" />
-        <TextField id="outlined-basic" label="Id" variant="outlined" />
-        <TextField id="outlined-basic" label="D.O.J" variant="outlined" />
-        <TextField id="outlined-basic" label="Project" variant="outlined" />
-        <label className="drawer__form__button drawer__form__image__input"> Employee Photo
-        <Input type="file" />
-        </label>
-        <div className="drawer__buttons__container">
-          <button onClick={(e)=>{
-            e.preventDefault();
-            handleDrawerToggle()
-            }}
-             className="drawer__form__button">Cancel</button>
-          <button type="submit" className="drawer__form__button">Submit</button>
-        </div>
-      </form>
+      <FormComponent handleDrawerToggle={handleDrawerToggle} setEmployeeData={props.setEmployeeData}/>
     </div>
   );
 
