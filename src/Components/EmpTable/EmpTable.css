@@ -1,6 +1,8 @@
 table{
     border: 2px solid var(--primary-fg-color);
     box-shadow: var(--primary-box-shadow);
+    /* border-radius: 20px;
+    padding: 10px; */
 }
 th{
     border: 1px solid var(--primary-fg-color);

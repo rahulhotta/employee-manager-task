@@ -1,11 +1,11 @@
 import React, { useState, useContext } from "react";
+import { EmpContext } from "../../App";
 import "./EmpCard.css";
 import Modal from "@mui/material/Modal";
 import Button from "../UI/Button";
 import { AiFillDelete } from "react-icons/ai";
 import { BsPencilSquare } from "react-icons/bs";
 import Box from "@mui/material/Box";
-import { EmpContext } from "../../App";
 import TextField from "@mui/material/TextField";
 import Input from "@mui/material/Input";
 function EmpCard(props) {

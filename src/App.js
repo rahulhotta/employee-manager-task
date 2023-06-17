@@ -37,7 +37,7 @@ function App() {
   };
   return (
     <div className="App">
-      <>
+      {/* <>
         <EmpContext.Provider
           value={{
             employeeData,
@@ -53,25 +53,39 @@ function App() {
           />
           <Routes>
             <Route path="/" element={<HomePage currentUser={currentUser} />} />
-            <Route path="graph" element={<GraphPage />} />
-            {/* <Route path="details" element={<DetailsPage />} /> */}
+            <Route path="graph" element={<GraphPage />} />    
             <Route path="cards" element={<CardPage />} />
           </Routes>
         </EmpContext.Provider>
-      </>
-      {/* {!isLoggedIn ? (
+      </> */}
+
+      
+      {!isLoggedIn ? (
         <LoginPage setIsLoggedIn={setIsLoggedIn} setCurrentUser={setCurrentUser}/>
       ) : (
         <>
           <NavBar currentUser={currentUser} setIsLoggedIn={setIsLoggedIn} setEmployeeData={setEmployeeData}/>
+          <EmpContext.Provider
+          value={{
+            employeeData,
+            setEmployeeData,
+            deleteTaskFromList,
+            editTaskInList,
+          }}
+        >
+          <NavBar
+            currentUser={currentUser}
+            setIsLoggedIn={setIsLoggedIn}
+            setEmployeeData={setEmployeeData}
+          />
           <Routes>
-            <Route path="/" element={<HomePage currentUser={currentUser}/>} />
+            <Route path="/" element={<HomePage currentUser={currentUser} />} />
             <Route path="graph" element={<GraphPage />} />
-            <Route path="details" element={<DetailsPage />} />
             <Route path="cards" element={<CardPage />} />
           </Routes>
+        </EmpContext.Provider>
         </>
-      )} */}
+      )}
     </div>
   );
 }
