@@ -146,7 +146,7 @@ function EmpTable() {
         />
         <TextField
           id="outlined-basic"
-          label="D.O.J"
+          type="date"
           variant="outlined"
           onChange={(e) => {
             setUpdatedEmpData((prev) => {

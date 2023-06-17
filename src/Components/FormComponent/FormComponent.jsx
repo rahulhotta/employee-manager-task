@@ -57,8 +57,8 @@ function FormComponent(props) {
         />
         <TextField
           id="outlined-basic"
-          label="D.O.J"
           variant="outlined"
+          type="date"
           onChange={(e) => {
             setEmployeeDetails((prev) => {
               return {

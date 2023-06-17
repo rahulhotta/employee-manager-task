@@ -22,10 +22,13 @@
     cursor: pointer;
 }
 .drawer__form__image__input{
-    width: 180px;
+    width: 300px;
     text-align: center;
     border-radius: 10px;
     padding: 5px 10px;
     background-color: var(--primary-bg-color);
     color: var(--primary-fg-color);
+}
+.MuiInputBase-input{
+    width: 270px !important;
 }
