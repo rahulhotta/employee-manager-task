@@ -1,16 +1,17 @@
-import React, { useState, useContext } from "react";
-import "./EmpCard.css";
+import React, { useContext, useState } from "react";
+import "./EmpTable.css";
+import { EmpContext } from "../../App";
 import Modal from "@mui/material/Modal";
 import Button from "../UI/Button";
 import { AiFillDelete } from "react-icons/ai";
 import { BsPencilSquare } from "react-icons/bs";
-import Box from "@mui/material/Box";
-import { EmpContext } from "../../App";
 import TextField from "@mui/material/TextField";
 import Input from "@mui/material/Input";
-function EmpCard(props) {
+import Box from "@mui/material/Box";
+
+function EmpTable() {
   const employee = useContext(EmpContext);
-  const {  deleteTaskFromList,editTaskInList } = employee;
+  const { employeeData, setEmployeeData, deleteTaskFromList, editTaskInList } = employee;
   const style = {
     position: "absolute",
     top: "50%",
@@ -27,22 +28,29 @@ function EmpCard(props) {
     p: 4,
     color: "black",
   };
-
-  const { empId, empName, empDOJ, empProject, empPhoto } = props.item;
-
   const [modalOpen, setModalOpen] = useState(false);
   const [updatedEmpData, setUpdatedEmpData] = useState({
-    empId: empId,
-    empName: empName,
-    empDOJ: empDOJ,
-    empProject: empProject,
-    empPhoto: empPhoto,
+    empId: "",
+    empName: "",
+    empDOJ: "",
+    empProject: "",
+    empPhoto: "",
   });
   const handleModalOpen = () => setModalOpen(true);
   const handleModalClose = () => setModalOpen(false);
 
   // Function to delete task on double click
- 
+ const editClickHandler = (emp) =>{
+    setUpdatedEmpData({
+        empId: emp.empId,
+        empName: emp.empName,
+        empDOJ: emp.empDOJ,
+        empProject: emp.empProject,
+        empPhoto: emp.empPhoto,
+    })
+    handleModalOpen();
+
+ }
   const updateHandler = (e) => {
     e.preventDefault()
     let updatedData = {
@@ -52,32 +60,54 @@ function EmpCard(props) {
       empProject: updatedEmpData.empProject,
       empPhoto: updatedEmpData.empPhoto,
     };
-    editTaskInList(empId, updatedData);
+    editTaskInList(updatedEmpData.empId, updatedData);
     handleModalClose();
   };
   return (
-    <>
-      <div className="taskCard__container">
-        <img src={empPhoto} alt="hello" className="empCard__emp_photo" />
-        <div className="empCard__footer">
-          <h3 className="empCard__emp_name">Name:{empName}</h3>
-          <div className="empCard__emp_doj">D.O.J:{empDOJ}</div>
-          <div className="empCard__emp_project">Project:{empProject}</div>
-        </div>
-        <div className="empCard__actions__container">
-          <Button onClick={handleModalOpen}>
-            <BsPencilSquare />
-          </Button>
-          <Button
-            onClick={() => {
-              console.log("Clicked in empCard");
-              deleteTaskFromList(empId);
-            }}
-          >
-            <AiFillDelete />
-          </Button>
-        </div>
-      </div>
+    <div className="empTable__container">
+      {employeeData.length === 0 ? (
+        <h1> You dont have any data </h1>
+      ) : (
+        <table>
+          <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>D.O.J</th>
+            <th>project</th>
+            <th>Image</th>
+            <th>Edit</th>
+            <th>Delete</th>
+          </tr>
+          {employeeData.map((emp) => {
+            return (
+              <tr>
+                <td>{emp.empId}</td>
+                <td>{emp.empName}</td>
+                <td>{emp.empDOJ}</td>
+                <td>{emp.empProject}</td>
+                <td> <img src={emp.empPhoto} alt="" className="empTable__img"/> </td>
+                <td>
+                  <Button onClick={()=>{
+                    editClickHandler(emp)
+                  }}>
+                    <BsPencilSquare />
+                  </Button>
+                </td>
+                <td>
+                  <Button
+                    onClick={() => {
+                      console.log("Clicked in empCard");
+                      deleteTaskFromList(emp.empId);
+                    }}
+                  >
+                    <AiFillDelete />
+                  </Button>
+                </td>
+              </tr>
+            );
+          })}
+        </table>
+      )}
       <Modal
         open={modalOpen}
         onClose={handleModalClose}
@@ -173,8 +203,8 @@ function EmpCard(props) {
       </form>
         </Box>
       </Modal>
-    </>
+    </div>
   );
 }
 
-export default EmpCard;
+export default EmpTable;

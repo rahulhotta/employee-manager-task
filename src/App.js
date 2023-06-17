@@ -18,10 +18,34 @@ function App() {
     img: "",
   });
   const [employeeData, setEmployeeData] = useState([]);
+  // Function to delete tasks from existing list
+  const deleteTaskFromList = (taskId) => {
+    console.log("Deleted a emp");
+    const updatedList = employeeData.filter((item) => item.empId !== taskId);
+    setEmployeeData(updatedList);
+  };
+
+  // Function to edit tasks in existing list
+  const editTaskInList = (taskId, updatedTask) => {
+    const updatedList = employeeData.map((item) => {
+      if (item.empId === taskId) {
+        return updatedTask;
+      }
+      return item;
+    });
+    setEmployeeData(updatedList);
+  };
   return (
     <div className="App">
       <>
-        <EmpContext.Provider value={{employeeData, setEmployeeData}}>
+        <EmpContext.Provider
+          value={{
+            employeeData,
+            setEmployeeData,
+            deleteTaskFromList,
+            editTaskInList,
+          }}
+        >
           <NavBar
             currentUser={currentUser}
             setIsLoggedIn={setIsLoggedIn}
@@ -31,12 +55,7 @@ function App() {
             <Route path="/" element={<HomePage currentUser={currentUser} />} />
             <Route path="graph" element={<GraphPage />} />
             {/* <Route path="details" element={<DetailsPage />} /> */}
-            <Route
-              path="cards"
-              element={
-                <CardPage />
-              }
-            />
+            <Route path="cards" element={<CardPage />} />
           </Routes>
         </EmpContext.Provider>
       </>
